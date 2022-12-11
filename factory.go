@@ -28,7 +28,19 @@ func CreateDefaultConfig() component.ReceiverConfig {
 //		return nil, nil
 //	}
 func createTracesReceiver(s context.Context, p component.ReceiverCreateSettings, baseCfg component.ReceiverConfig, consumer consumer.Traces) (component.TracesReceiver, error) {
-	return nil, nil
+	if consumer == nil{
+		return nil, component.ErrNilNextConsumer
+	}
+	logger := p.Logger
+	tailtracerCfg := baseCfg.(*Config)
+
+	traceRcvr := &tailtracerReceiver{
+		logger: logger,
+		nextConsumer: consumer,
+		config: tailtracerCfg,
+	}
+
+	return traceRcvr, nil
 }
 
 func NewFactory() component.ReceiverFactory {
