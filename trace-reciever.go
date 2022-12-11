@@ -7,7 +7,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.uber.org/zap"
-	"google.golang.org/protobuf/internal/errors"
 )
 
 type tailtracerReceiver struct{
